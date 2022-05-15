@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using WebApplication2.Db;
 using WebApplication2.Models;
@@ -15,8 +16,9 @@ namespace WebApplication2.Repositories
         {
             appDb = _appDb;
         }
-        public async Task<PlayerAccount> AddNewAccount(PlayerAccount playerAccount)
+        public async Task<PlayerAccountReturnModel> AddNewAccount(PlayerAccount playerAccount)
         {
+            var exist = appDb.PlayerAccount.Any(x => x.Account_ID == playerAccount.Account_ID);
             var account = new PlayerAccount {
                 
                 Account_ID = playerAccount.Account_ID,
@@ -25,9 +27,16 @@ namespace WebApplication2.Repositories
                 IsAutoConvertMd5= playerAccount.IsAutoConvertMd5
 
             };
-            appDb.Add(playerAccount);
-            await appDb.SaveChangesAsync();
-            return account;
+            if (exist)
+            {
+                return new PlayerAccountReturnModel { IsSuccess = false, Error = "Account is already exist" };
+            }
+            else
+            {
+                appDb.Add(playerAccount);
+                await appDb.SaveChangesAsync();
+                return new PlayerAccountReturnModel { IsSuccess = true, PlayerAccount = playerAccount, Error = string.Empty };
+            }
         }
 
         public async Task<ActionResult<IList<PlayerAccount>>> GetAllPlayer()
