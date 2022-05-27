@@ -7,7 +7,7 @@ using WebApplication2.Db;
 
 namespace WebApplication2.Migrations
 {
-    [DbContext(typeof(AppDbContext))]
+    [DbContext(typeof(ROM_Account))]
     partial class AppDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

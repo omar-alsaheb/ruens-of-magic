@@ -11,17 +11,17 @@ namespace WebApplication2.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly IAccountRepository<PlayerAccount> accountRepository;
+        private readonly IRomRepository<PlayerAccount> romRepository;
 
-        public AccountController(IAccountRepository<PlayerAccount> _accountRepository)
+        public AccountController(IRomRepository<PlayerAccount> _accountRepository)
         {
-            accountRepository = _accountRepository;
+            romRepository = _accountRepository;
         }
         [HttpPost("AddNewAccount")]
         public async Task<IActionResult> AddNewAccount(PlayerAccount player)
         {
 
-            var acc = await accountRepository.AddNewAccount(player);
+            var acc = await romRepository.AddNewAccount(player);
             return Ok(acc);
         }
 
@@ -29,10 +29,17 @@ namespace WebApplication2.Controllers
 
         public async Task<ActionResult<IList<PlayerAccount>>> GetAllPlayer()
         {
-            var omar = await accountRepository.GetAllPlayer();
+            var omar = await romRepository.GetAllPlayer();
             return Ok(omar);
 
         }
+
+        [HttpGet("GetRoleDataBoard")]
+        public async Task<ActionResult<IList<RoleDataBillBoardInfoViewModel>>> GetRoleDataBoard()
+        {
+           return await romRepository.GetRoleDataBoard();
+        }
+
 
 
     }

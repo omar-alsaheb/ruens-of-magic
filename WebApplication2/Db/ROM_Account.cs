@@ -3,9 +3,9 @@ using WebApplication2.Models;
 
 namespace WebApplication2.Db
 {
-    public class AppDbContext:DbContext
+    public class ROM_Account:DbContext
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+        public ROM_Account(DbContextOptions<ROM_Account> options) : base(options)
 
         {
 

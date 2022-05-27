@@ -30,10 +30,12 @@ namespace WebApplication2
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddDbContext<AppDbContext>(options => {
+            services.AddDbContext<ROM_Account>(options => {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+            }).AddDbContext<ROM_World>(options => {
+                options.UseSqlServer(Configuration.GetConnectionString("RomWorldConnection"));
             });
-            services.AddScoped<IAccountRepository<PlayerAccount>, AccountRepository>();
+            services.AddScoped<IRomRepository<PlayerAccount>, RomRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

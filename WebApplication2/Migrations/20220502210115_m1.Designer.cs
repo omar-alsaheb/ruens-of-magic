@@ -8,7 +8,7 @@ using WebApplication2.Db;
 
 namespace WebApplication2.Migrations
 {
-    [DbContext(typeof(AppDbContext))]
+    [DbContext(typeof(ROM_Account))]
     [Migration("20220502210115_m1")]
     partial class m1
     {
