@@ -47,20 +47,53 @@ namespace WebApplication2.Repositories
               return await appDb.PlayerAccount.ToListAsync();
         }
 
-        public async Task<ActionResult<IList<RoleDataBillBoardInfoViewModel>>> GetRoleDataBoard()
+        public async Task<ActionResult<IList<RoleDataBillBoardInfoViewModel>>> GetRoleDataBoard(int id)
         {
+            var TypeNameDynamic = "";
 
+            if (id == 3)
+            {
+                TypeNameDynamic = "Strength";
+            }
+            if (id == 5)
+            {
+                TypeNameDynamic = "Stamina";
+            }
+            if (id == 6)
+            {
+                TypeNameDynamic = "intelligence";
+            }
+            if (id == 7)
+            {
+                TypeNameDynamic = "Wisdom";
+            }
+            if (id == 8)
+            {
+                TypeNameDynamic = "Melee Attack";
+            }
+            if (id == 9)
+            {
+                TypeNameDynamic = "Magic Attack";
+            }
+            if (id == 10)
+            {
+                TypeNameDynamic = "Physical Defense";
+            }
+            if (id == 11)
+            {
+                TypeNameDynamic = "Magical Defense";
+            }
 
             var  query =  (from bill in rom_World.BillBoardInfo
                          join role in rom_World.RoleData on bill.PlayerDBID equals role.DBID
                          orderby bill.SortValue descending
-                           where bill.Type == 4
+                           where bill.Type == id
                            select new 
                          {
                              RANK = bill.SortValue,
                              PlayerDBID = bill.PlayerDBID,
-                             RoleName= role.RoleName,
-                             PhysicalDefense = bill.Type
+                             RoleName= role.RoleName.Replace('\u0000','~'),
+                             Type = bill.Type
                          }).Take(15).ToList();
 
             var result = new List<RoleDataBillBoardInfoViewModel>();
@@ -71,7 +104,8 @@ namespace WebApplication2.Repositories
                     DBID =  item.PlayerDBID,
                     RoleName = item.RoleName,
                     RANK = item.RANK,
-
+                    Type = item.Type,
+                    TypeName = TypeNameDynamic
                 });
 
             }

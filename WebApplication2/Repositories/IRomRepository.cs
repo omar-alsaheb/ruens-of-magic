@@ -9,6 +9,6 @@ namespace WebApplication2.Repositories
     {
         public Task<PlayerAccountReturnModel> AddNewAccount(PlayerAccount playerAccount);
         public Task<ActionResult<IList<PlayerAccount>>> GetAllPlayer();
-        public Task<ActionResult<IList<RoleDataBillBoardInfoViewModel>>> GetRoleDataBoard();
+        public Task<ActionResult<IList<RoleDataBillBoardInfoViewModel>>> GetRoleDataBoard(int id);
     }
 }

@@ -34,10 +34,10 @@ namespace WebApplication2.Controllers
 
         }
 
-        [HttpGet("GetRoleDataBoard")]
-        public async Task<ActionResult<IList<RoleDataBillBoardInfoViewModel>>> GetRoleDataBoard()
+        [HttpGet("GetRoleDataBoard/{id}")]
+        public async Task<ActionResult<IList<RoleDataBillBoardInfoViewModel>>> GetRoleDataBoard(int id)
         {
-           return await romRepository.GetRoleDataBoard();
+           return await romRepository.GetRoleDataBoard(id);
         }
 
 
