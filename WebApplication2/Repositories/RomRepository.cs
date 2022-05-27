@@ -96,7 +96,7 @@ namespace WebApplication2.Repositories
                          {
                              RANK = bill.SortValue,
                              PlayerDBID = bill.PlayerDBID,
-                             RoleName= role.RoleName.Replace('\u0000',' '),
+                             RoleName= role.RoleName.Replace('\u0000',' ').Trim(),
                              Type = bill.Type
                          }).Take(15).ToList();
 

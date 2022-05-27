@@ -29,8 +29,8 @@ namespace WebApplication2.Controllers
 
         public async Task<ActionResult<IList<PlayerAccount>>> GetAllPlayer()
         {
-            var omar = await romRepository.GetAllPlayer();
-            return Ok(omar);
+            var res = await romRepository.GetAllPlayer();
+            return Ok(res);
 
         }
 

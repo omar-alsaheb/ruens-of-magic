@@ -38,12 +38,11 @@ namespace WebApplication2
             services.AddScoped<IRomRepository<PlayerAccount>, RomRepository>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseCors(option =>
             {
-                option.WithOrigins("https://51.89.42.197:444", "https://51.89.42.197:444").AllowAnyMethod().AllowAnyHeader().AllowCredentials();
+                option.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
             });
 
             if (env.IsDevelopment())
