@@ -7,7 +7,7 @@ namespace WebApplication2.Repositories
 {
     public interface IRomRepository<T>
     {
-        public Task<PlayerAccount> AddNewAccount(PlayerAccount playerAccount);
+        public Task<PlayerAccountReturnModel> AddNewAccount(PlayerAccount playerAccount);
         public Task<ActionResult<IList<PlayerAccount>>> GetAllPlayer();
         public Task<ActionResult<IList<RoleDataBillBoardInfoViewModel>>> GetRoleDataBoard();
     }
