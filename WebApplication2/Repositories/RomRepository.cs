@@ -55,6 +55,10 @@ namespace WebApplication2.Repositories
             {
                 TypeNameDynamic = "Strength";
             }
+            if (id == 4)
+            {
+                TypeNameDynamic = "Dexterity";
+            }
             if (id == 5)
             {
                 TypeNameDynamic = "Stamina";
@@ -92,7 +96,7 @@ namespace WebApplication2.Repositories
                          {
                              RANK = bill.SortValue,
                              PlayerDBID = bill.PlayerDBID,
-                             RoleName= role.RoleName.Replace('\u0000','~'),
+                             RoleName= role.RoleName.Replace('\u0000',' '),
                              Type = bill.Type
                          }).Take(15).ToList();
 
