@@ -53,15 +53,15 @@ namespace WebApplication2.Repositories
 
             var  query =  (from bill in rom_World.BillBoardInfo
                          join role in rom_World.RoleData on bill.PlayerDBID equals role.DBID
-                         orderby bill.SortValue
-                         where bill.Type == 4
-                         select new 
+                         orderby bill.SortValue descending
+                           where bill.Type == 4
+                           select new 
                          {
                              RANK = bill.SortValue,
                              PlayerDBID = bill.PlayerDBID,
                              RoleName= role.RoleName,
                              PhysicalDefense = bill.Type
-                         }).ToList();
+                         }).Take(15).ToList();
 
             var result = new List<RoleDataBillBoardInfoViewModel>();
             foreach (var item in query)
@@ -70,7 +70,7 @@ namespace WebApplication2.Repositories
                 {
                     DBID =  item.PlayerDBID,
                     RoleName = item.RoleName,
-                    RANK = item.RANK
+                    RANK = item.RANK,
 
                 });
 
