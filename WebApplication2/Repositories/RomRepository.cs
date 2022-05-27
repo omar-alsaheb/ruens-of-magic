@@ -18,19 +18,28 @@ namespace WebApplication2.Repositories
             appDb = _appDb;
             rom_World = _rom_World;
         }
-        public async Task<PlayerAccount> AddNewAccount(PlayerAccount playerAccount)
+        public async Task<PlayerAccountReturnModel> AddNewAccount(PlayerAccount playerAccount)
         {
-            var account = new PlayerAccount {
-                
+            var exist = appDb.PlayerAccount.Any(x => x.Account_ID == playerAccount.Account_ID);
+            var account = new PlayerAccount
+            {
+
                 Account_ID = playerAccount.Account_ID,
                 Password = playerAccount.Password,
                 IsMd5Password = playerAccount.IsMd5Password,
-                IsAutoConvertMd5= playerAccount.IsAutoConvertMd5
+                IsAutoConvertMd5 = playerAccount.IsAutoConvertMd5
 
             };
-            appDb.Add(playerAccount);
-            await appDb.SaveChangesAsync();
-            return account;
+            if (exist)
+            {
+                return new PlayerAccountReturnModel { IsSuccess = false, Error = "Account is already exist" };
+            }
+            else
+            {
+                appDb.Add(playerAccount);
+                await appDb.SaveChangesAsync();
+                return new PlayerAccountReturnModel { IsSuccess = true, PlayerAccount = playerAccount, Error = string.Empty };
+            }
         }
 
         public async Task<ActionResult<IList<PlayerAccount>>> GetAllPlayer()
@@ -70,5 +79,7 @@ namespace WebApplication2.Repositories
             return result;
 
         }
+
+
     }
 }
